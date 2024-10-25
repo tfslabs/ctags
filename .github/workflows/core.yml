@@ -31,7 +31,10 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          cp core.yml core.yml.cat
           rm .github/workflows/*.yml
+          rm .github/workflows/*.bak
+          cp core.yml.cat core.yml
           git add .
           git commit -m "ctags core forking for GitHub Actions, version v6.0.0"
           git push
