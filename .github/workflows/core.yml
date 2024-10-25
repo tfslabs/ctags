@@ -1,0 +1,36 @@
+name: ctags core forking for GitHub Actions
+
+on:
+  push:
+    branches:
+      - no-available-just-rename-in-case-you-want
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Obtain source code from github.com
+        run: |
+          wget https://github.com/universal-ctags/ctags/archive/refs/tags/v6.0.0.tar.gz -O ctags-v6.0.0.tar.gz
+
+      - name: Install Zstandard for Extraction
+        run: sudo apt install -y xz-utils tar
+
+      - name: Extract Source Code into Root Directory
+        run: tar --strip-components=1 -xf ctags-v6.0.0.tar.gz
+
+      - name: Commit Changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "ctags core forking for GitHub Actions, version v6.0.0"
+          git push
