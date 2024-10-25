@@ -3,7 +3,7 @@ name: ctags core forking for GitHub Actions
 on:
   push:
     branches:
-      - no-available-just-rename-in-case-you-want
+      - v6.0.0
 
 permissions:
   contents: write
@@ -31,7 +31,7 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          rm .github/workflows/cross-compile-android-ndk-on-mac.yml
+          rm .github/workflows/*.yml
           git add .
           git commit -m "ctags core forking for GitHub Actions, version v6.0.0"
           git push
